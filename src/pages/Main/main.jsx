@@ -1,10 +1,12 @@
 import React from "react";
+
 import "./main.css";
+import logo from "../../assets/Logo.png";
 
 const Main = () => {
   return (
     <>
-      <img src="../assets/Login.png" alt="" />
+      <img src={logo} alt="logo" />
       <div className="box">
         <form action="">
           <fieldset>

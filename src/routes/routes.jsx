@@ -8,8 +8,8 @@ import {
 
 import ProtectedRoute from "./ProtectedRoute";
 
-import Login from "./login/login";
-import Main from "./main/main";
+import Login from "../pages/Login/login";
+import Main from "../pages/Main/main";
 
 const AppRoutes = () => {
   return (
