@@ -8,8 +8,11 @@ import {
 
 import ProtectedRoute from "./ProtectedRoute";
 
-import Login from "../pages/Login/login";
-import Main from "../pages/Main/main";
+import Login from "../pages/Login/login.index";
+import Main from "../pages/Main/main.index";
+import RequestsList from "../pages/RequestsList/requestsList.index";
+import NewRequest from "../pages/NewRequest/newRequest.index";
+import RequestDetails from "../pages/RequestDetails/requestDetails.index";
 
 const AppRoutes = () => {
   return (
@@ -17,6 +20,18 @@ const AppRoutes = () => {
       <Routes>
         <Route path="/login" Component={Login}></Route>
         <Route path="/main" element={<ProtectedRoute element={<Main />} />} />
+        <Route
+          path="/list"
+          element={<ProtectedRoute element={<RequestsList />} />}
+        />
+        <Route
+          path="/new"
+          element={<ProtectedRoute element={<NewRequest />} />}
+        />
+        <Route
+          path="/request/:id"
+          element={<ProtectedRoute element={<RequestDetails />} />}
+        />
         <Route path="/" element={<Navigate to="/main" />} />
       </Routes>
     </Router>

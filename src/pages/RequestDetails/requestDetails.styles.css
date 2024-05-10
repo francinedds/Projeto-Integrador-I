@@ -1,0 +1,37 @@
+.page-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 15px;
+  border-radius: 15px;
+  width: 35%;
+}
+
+.page-details .table {
+  border-collapse: collapse;
+  font-weight: lighter;
+  margin-bottom: 12px;
+}
+
+.page-details a {
+  text-decoration: underline;
+  font-family: "Poppins", sans-serif;
+  color: #fff;
+  cursor: pointer;
+}
+
+.page-details #footer {
+  font-size: 10px;
+  text-decoration: none;
+}
+
+.page-details #footer:hover {
+  color: #1d3565;
+}

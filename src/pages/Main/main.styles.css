@@ -1,0 +1,31 @@
+.page-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 15px;
+  border-radius: 15px;
+  width: 25%;
+}
+
+.page-main a {
+  text-decoration: none !important;
+  color: #fff;
+  font-weight: lighter;
+  font-size: 18px;
+}
+
+.page-main a:hover {
+  cursor: pointer;
+  color: #1d3565;
+}
+
+.page-main table {
+  width: 100%;
+}
