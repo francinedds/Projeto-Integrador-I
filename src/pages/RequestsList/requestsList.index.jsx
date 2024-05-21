@@ -3,83 +3,18 @@ import "./requestsList.styles.css";
 import api from "../../api/axiosInstance";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import Footer from "../../components/Footer/footer.index";
+import Loading from "../../components/Loading/loading.index";
+import logo from "../../assets/Logo.png";
 
 const RequestsList = () => {
   const navigate = useNavigate();
 
-  const [list, setList] = useState([
-    {
-      aprovar: "",
-      assunto: "CORREÇÃO",
-      id: 1502,
-      lancamento: "04/04/2024",
-      status: "AGUARDANDO ANALISE",
-      valor: "",
-    },
-    {
-      aprovar: "",
-      assunto: "CORREÇÃO",
-      id: 1503,
-      lancamento: "03/05/2024",
-      status: "AGUARDANDO ANALISE",
-      valor: "",
-    },
-    {
-      aprovar: "",
-      assunto: "CUSTOMIZAÇÃO",
-      id: 1504,
-      lancamento: "06/05/2024",
-      status: "AGUARDANDO ANALISE",
-      valor: "",
-    },
-    {
-      aprovar: "",
-      assunto: "CUSTOMIZAÇÃO",
-      id: 1505,
-      lancamento: "06/05/2024",
-      status: "AGUARDANDO ANALISE",
-      valor: "",
-    },
-    {
-      aprovar: "",
-      assunto: "CORREÇÃO",
-      id: 1506,
-      lancamento: "06/05/2024",
-      status: "AGUARDANDO ANALISE",
-      valor: "",
-    },
-    {
-      aprovar: "",
-      assunto: "CUSTOMIZAÇÃO",
-      id: 1507,
-      lancamento: "07/05/2024",
-      status: "AGUARDANDO ANALISE",
-      valor: "",
-    },
-    {
-      aprovar: "",
-      assunto: "CUSTOMIZAÇÃO",
-      id: 1508,
-      lancamento: "07/05/2024",
-      status: "APROVADO CLIENTE/AGUARDANDO INICIO",
-      valor: "R$ 250,00",
-    },
-    {
-      aprovar: "",
-      assunto: "CORREÇÃO",
-      id: 1509,
-      lancamento: "07/05/2024",
-      status: "APROVADO SIMBOLUS/AGUARDANDO INICIO",
-      valor: "",
-    },
-  ]);
-  const [user, setUser] = useState(null);
+  const [list, setList] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     getList();
-
-    const user = JSON.parse(localStorage.getItem("auth"));
-    setUser(user);
   }, []);
 
   const getList = async (status = 99) => {
@@ -87,117 +22,147 @@ const RequestsList = () => {
 
     try {
       const res = await api.get(
-        `/listar/${user.idcli}/${user.token}/${status}`
+        `/listar2/${user.idcli}/${user.token}/${status}/1`
       );
 
-      console.log(res);
+      switch (res.data.code) {
+        case 200:
+          setList(res.data.solicitacoes.solicitacoes);
+          break;
+
+        case 400:
+          toast.error(res.data.mensagem);
+          break;
+
+        default:
+          return;
+      }
+
+      setLoading(false);
     } catch (err) {
       toast.error(err);
     }
   };
 
+  const detailRedirect = (id) => {
+    navigate("/request/" + id);
+  };
+
   return (
     <>
-      <img src="/static/images/Logo.png" alt="" />
+      <img src={logo} alt="logo" />
       <br />
-      <div class="page-list">
-        <form class="formLista">
+      <div className="page-list">
+        <form className="formLista">
           <fieldset>
             <legend>Lista de Solicitações</legend>
-            <table class="table" border="1">
-              <tr>
-                <td align="center">
-                  <a onClick={() => getList(11)}>
-                    <strong>EM ANALISE</strong>
-                  </a>
-                </td>
-                <td align="center">
-                  <a onClick={() => getList(0)}>
-                    <strong>APROVADO</strong>
-                  </a>
-                </td>
-                <td align="center">
-                  <a onClick={() => getList(1)}>
-                    <strong>DESENVOLVENDO</strong>
-                  </a>
-                </td>
-                <td align="center">
-                  <a onClick={() => getList(2)}>
-                    <strong>NÃO APROVADO</strong>
-                  </a>
-                </td>
-                <td align="center">
-                  <a onClick={() => getList(3)}>
-                    <strong>EM TESTE</strong>
-                  </a>
-                </td>
-                <td align="center">
-                  <a onClick={() => getList(4)}>
-                    <strong>FINALIZADO</strong>
-                  </a>
-                </td>
-                <td align="center">
-                  <a onClick={() => getList(99)}>
-                    <strong>TODOS</strong>
-                  </a>
-                </td>
-              </tr>
-            </table>
-            <table class="table" border="1">
-              <tr>
-                <td align="center">
-                  <strong>CODIGO</strong>
-                </td>
-                <td align="center">
-                  <strong>LANÇAMENTO</strong>
-                </td>
-                <td align="center">
-                  <strong>ASSUNTO</strong>
-                </td>
-                <td align="center">
-                  <strong>STATUS</strong>
-                </td>
-                <td align="center">
-                  <strong>VALOR</strong>
-                </td>
-                <td align="center">
-                  <strong>APROVAR VALOR</strong>
-                </td>
-              </tr>
-              <br />
-
-              {list &&
-                list.length &&
-                list.map((item) => (
+            {loading ? (
+              <Loading />
+            ) : (
+              <>
+                <table className="table" border="1">
                   <tr>
                     <td align="center">
-                      <a>{item.id}</a>
+                      <a onClick={() => getList(11)}>
+                        <strong>EM ANALISE</strong>
+                      </a>
                     </td>
                     <td align="center">
-                      <a>{item.lancamento}</a>
+                      <a onClick={() => getList(0)}>
+                        <strong>APROVADO</strong>
+                      </a>
                     </td>
                     <td align="center">
-                      <a>{item.assunto}</a>
+                      <a onClick={() => getList(1)}>
+                        <strong>DESENVOLVENDO</strong>
+                      </a>
                     </td>
                     <td align="center">
-                      <a>{item.status}</a>
+                      <a onClick={() => getList(2)}>
+                        <strong>NÃO APROVADO</strong>
+                      </a>
                     </td>
                     <td align="center">
-                      <a>{item.valor}</a>
+                      <a onClick={() => getList(3)}>
+                        <strong>EM TESTE</strong>
+                      </a>
                     </td>
                     <td align="center">
-                      <a href="/aprovar_sol2/{{message.id}}">{item.aprovar}</a>
+                      <a onClick={() => getList(4)}>
+                        <strong>FINALIZADO</strong>
+                      </a>
+                    </td>
+                    <td align="center">
+                      <a onClick={() => getList(99)}>
+                        <strong>TODOS</strong>
+                      </a>
                     </td>
                   </tr>
-                ))}
-            </table>
+                </table>
+                <table class="table" border="1">
+                  <tr>
+                    <td align="center">
+                      <strong>CODIGO</strong>
+                    </td>
+                    <td align="center">
+                      <strong>LANÇAMENTO</strong>
+                    </td>
+                    <td align="center">
+                      <strong>ASSUNTO</strong>
+                    </td>
+                    <td align="center">
+                      <strong>STATUS</strong>
+                    </td>
+                    <td align="center">
+                      <strong>VALOR</strong>
+                    </td>
+                    <td align="center">
+                      <strong>APROVAR VALOR</strong>
+                    </td>
+                  </tr>
+                  <br />
+
+                  {list && list.length
+                    ? list.map((item) => (
+                        <tr
+                          key={item.id}
+                          onClick={() => detailRedirect(item.id)}
+                          className="table-item"
+                        >
+                          <td align="center">
+                            <a>{item.id}</a>
+                          </td>
+                          <td align="center">
+                            <a>{item.lancamento}</a>
+                          </td>
+                          <td align="center">
+                            <a>{item.assunto}</a>
+                          </td>
+                          <td align="center">
+                            <a>{item.status}</a>
+                          </td>
+                          <td align="center">
+                            <a>{item.valor}</a>
+                          </td>
+                          <td align="center">
+                            <a href="/aprovar_sol2/{{message.id}}">
+                              {item.aprovar}
+                            </a>
+                          </td>
+                        </tr>
+                      ))
+                    : null}
+                </table>
+              </>
+            )}
+
             <a onClick={() => navigate("/main")} id="footer" align="center">
               Voltar para o menu
             </a>
           </fieldset>
           <br />
           <label align="center">
-            Cliente: {user?.idcli} - {user?.nome_cliente}
+            <Footer />
           </label>
         </form>
       </div>

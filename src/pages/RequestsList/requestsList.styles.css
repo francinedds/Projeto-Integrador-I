@@ -11,7 +11,8 @@
   background-color: rgba(0, 0, 0, 0.6);
   padding: 15px;
   border-radius: 15px;
-  width: 60%;
+  width: 60vw;
+  min-width: 600px;
 }
 
 .page-list .table {
@@ -37,4 +38,12 @@
 
 .page-list #footer:hover {
   color: #1d3565;
+}
+
+.page-list .table-item {
+  cursor: pointer;
+}
+
+.page-list .table-item:hover a {
+  color: aqua;
 }

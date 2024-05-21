@@ -22,8 +22,8 @@ const Main = () => {
   return (
     <>
       <img src={logo} alt="logo" />
-      <div class="page-main">
-        <form class="formOpcoes">
+      <div className="page-main">
+        <form className="formOpcoes">
           <fieldset>
             <legend>Opções</legend>
             <table>
