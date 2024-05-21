@@ -1,70 +1,65 @@
-# Getting Started with Create React App
+# Projeto Simbolus
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Este projeto é composto por um frontend em React e um servidor backend em Python. Siga as instruções abaixo para configurar e rodar ambos.
 
-## Available Scripts
+## Configuração do Frontend
 
-In the project directory, you can run:
+1. **Criar arquivo de ambiente:**
 
-### `npm start`
+   - A partir do arquivo `.env.example`, crie um arquivo `.env`.
+   - Certifique-se de que a porta `5001` do projeto esteja definida.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+2. **Instalar dependências:**
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+   ```bash
+   cd frontend
+   npm install
+   ```
 
-### `npm test`
+3. **Iniciar a aplicação:**
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+   ```bash
+   npm start
+   ```
 
-### `npm run build`
+## Configuração do Backend
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. **Abrir projeto no PyCharm:**
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+   - Abra o projeto no PyCharm.
+   - Ele solicitará a configuração de um interpretador Python. Selecione o interpretador Python instalado ou crie um ambiente virtual (virtualenv).
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. **Instalar dependências:**
 
-### `npm run eject`
+   - No PyCharm, vá para o menu `File > Settings > Project: PI > Python Interpreter`.
+   - Clique no ícone de mais (`+`) para adicionar pacotes.
+     - Digite `Flask` e clique em `Install Package`.
+     - Digite `Flask-Session` e clique em `Install Package`.
+     - Digite `waitress` e clique em `Install Package`.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+3. **Atualizar o pip e instalar fdb:**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+   - No terminal do PyCharm, execute:
+     ```bash
+     python.exe -m pip install --upgrade pip
+     pip install fdb
+     ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+4. **Instalar pacotes no ambiente virtual (venv):**
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+   - No terminal, repita o procedimento de instalação para os pacotes `flask`, `flask-session`, e `fdb`.
 
-## Learn More
+5. **Configurar servidor para rodar:**
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+   - No final do arquivo `servidor_simbolus.py`, certifique-se de que o servidor esteja configurado corretamente:
+     ```python
+     if __name__ == "__main__":
+         serve(app, host="192.168.2.190", port=5000)
+         # app.run(debug=True)
+     ```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+6. **Rodar servidor fora do PyCharm:**
+   - Para rodar o servidor fora do PyCharm, abra um terminal e execute:
+     ```bash
+     C:\Users\acdsj\PycharmProjects\PI\venv\Scripts>python.exe "C:\Users\acdsj\PycharmProjects\PI\servidor_simbolus.py"
+     ```
